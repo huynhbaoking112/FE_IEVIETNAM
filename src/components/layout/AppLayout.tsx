@@ -1,24 +1,26 @@
 import { Outlet } from "react-router-dom";
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "./Sidebar";
+import { Separator } from "@/components/ui/separator";
 
 export const AppLayout = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header sẽ được implement sau */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
             <h1 className="text-xl font-semibold text-gray-900">
-              Task Management
+              SKIPLI
             </h1>
-            {/* User menu sẽ được implement sau */}
           </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <Outlet />
         </div>
-      </header>
-
-      {/* Main content */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <Outlet />
-      </main>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }; 
