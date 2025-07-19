@@ -84,7 +84,7 @@ export const EmployeeLoginForm = () => {
       if (response.user) {
         login(response.user);
         toast.success("Đăng nhập thành công!");
-        navigate("/dashboard");
+        navigate("/dashboard/employee");
       }
     },
     onError: (error) => {

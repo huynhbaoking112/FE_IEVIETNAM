@@ -84,7 +84,7 @@ export const OwnerLoginForm = () => {
       if (response.user) {
         login(response.user);
         toast.success("Đăng nhập thành công!");
-        navigate("/dashboard");
+        navigate("/dashboard/owner");
       }
     },
     onError: (error) => {
