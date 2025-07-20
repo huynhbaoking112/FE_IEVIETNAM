@@ -11,7 +11,7 @@ export const initializeSocket = (token: string): Socket => {
     socket.disconnect();
   }
 
-  const serverUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8080';
+  const serverUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
 
   socket = io(serverUrl, {
     auth: {
