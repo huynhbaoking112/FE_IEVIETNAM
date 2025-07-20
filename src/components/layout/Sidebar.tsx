@@ -4,6 +4,7 @@ import {
   Users,
   CheckSquare,
   User,
+  LogOut,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -70,7 +71,7 @@ const commonMenuItems = [
 ];
 
 export function AppSidebar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
 
   const mainMenuItems =
@@ -81,6 +82,10 @@ export function AppSidebar() {
       return location.pathname === url;
     }
     return location.pathname.startsWith(url);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -120,6 +125,21 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+
+              <SidebarMenuItem key="logout">
+                <SidebarMenuButton
+                  asChild
+                  isActive={false}
+                  onClick={() => {
+                    handleLogout();
+                  }}
+                >
+                  <div className="hover:cursor-pointer">
+                    <LogOut />
+                    <span>Logout</span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

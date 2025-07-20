@@ -14,7 +14,7 @@ import { EmployeeListPage } from "@/features/employees/pages/EmployeeListPage";
 import { TaskListPage } from "@/features/tasks/pages/TaskListPage";
 import { MyTasksPage } from "@/features/tasks/pages/MyTasksPage";
 
-import { ChatPage } from "@/features/chat/pages/ChatPage";
+import ChatPage from "@/features/chat/pages/ChatPage";
 
 import { ProfilePage } from "@/features/profile/pages/ProfilePage";
 

@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
   EMPLOYEES: {
     BASE: '/employees',
     BY_ID: (id: string) => `/employees/${id}`,
+    OWNER_INFO: '/employees/owner-info',
   },
 
   TASKS: {

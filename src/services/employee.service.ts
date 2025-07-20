@@ -84,4 +84,17 @@ export const updateEmployee = async (
 export const deleteEmployee = async (id: string): Promise<{ success: boolean; message: string }> => {
   const response = await api.delete(API_ENDPOINTS.EMPLOYEES.BY_ID(id));
   return response.data;
+};
+
+export const getOwnerInfo = async (): Promise<{
+  success: boolean;
+  owner: {
+    id: string;
+    name: string;
+    role: string;
+    phoneNumber: string;
+  };
+}> => {
+    const response = await api.get(API_ENDPOINTS.EMPLOYEES.OWNER_INFO);
+    return response.data;
 }; 
