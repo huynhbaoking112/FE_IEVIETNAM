@@ -22,3 +22,10 @@ export const taskFormSchema = z.object({
   priority: z.enum(['low', 'medium', 'high', 'urgent']),
   dueDate: z.date().optional(),
 });
+
+
+export const profileFormSchema = z.object({
+  name: z.string().min(1, "Tên không được để trống").max(100, "Tên không được quá 100 ký tự"),
+  phoneNumber: z.string().optional(),
+  position: z.string().optional(),
+});
