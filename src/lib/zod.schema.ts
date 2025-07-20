@@ -15,3 +15,10 @@ export const otpSchema = z.object({
     .max(6, 'Mã xác thực phải có 6 số')
     .regex(/^\d{6}$/, 'Mã xác thực chỉ chứa số')
 })
+export const taskFormSchema = z.object({
+  title: z.string().min(1, 'Tiêu đề là bắt buộc').max(200, 'Tiêu đề không được quá 200 ký tự'),
+  description: z.string().max(1000, 'Mô tả không được quá 1000 ký tự').optional(),
+  employeeId: z.string().min(1, 'Vui lòng chọn nhân viên'),
+  priority: z.enum(['low', 'medium', 'high', 'urgent']),
+  dueDate: z.date().optional(),
+});
