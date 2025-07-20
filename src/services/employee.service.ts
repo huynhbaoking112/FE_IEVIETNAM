@@ -1,6 +1,7 @@
 import api from '../lib/api';
 import { API_ENDPOINTS } from '../constants/endpoints';
 import type { Employee, EmployeesResponse } from '@/types/employee.types';
+import { safeParseDate } from '@/utils/dateUtils';
 
 export const getAllEmployees = async (params?: {
   page?: number;
@@ -12,8 +13,8 @@ export const getAllEmployees = async (params?: {
   
   const employeesWithDates = response.data.employees.map((employee: Employee & { createdAt: string; updatedAt: string }) => ({
     ...employee,
-    createdAt: new Date(employee.createdAt),
-    updatedAt: new Date(employee.updatedAt),
+    createdAt: safeParseDate(employee.createdAt),
+    updatedAt: safeParseDate(employee.updatedAt),
   }));
   
   return {
@@ -27,8 +28,8 @@ export const getEmployee = async (id: string): Promise<{ success: boolean; emplo
   
   const employee = {
     ...response.data.employee,
-    createdAt: new Date(response.data.employee.createdAt),
-    updatedAt: new Date(response.data.employee.updatedAt),
+    createdAt: safeParseDate(response.data.employee.createdAt),
+    updatedAt: safeParseDate(response.data.employee.updatedAt),
   };
   
   return {

@@ -1,4 +1,5 @@
 import type { Task } from "@/types/task.type";
+import type { Employee } from "@/types/employee.types";
 
 export const getStatusColor = (status: Task['status']) => {
     switch (status) {
@@ -9,6 +10,22 @@ export const getStatusColor = (status: Task['status']) => {
       case 'done':
         return 'bg-green-100 text-green-800 hover:bg-green-200';
       case 'archived':
+        return 'bg-gray-100 text-gray-800 hover:bg-gray-200';
+      default:
+        return 'bg-slate-100 text-slate-800';
+    }
+  };
+
+
+export const getEmployeeStatusColor = (status: Employee['status']) => {
+    switch (status) {
+      case 'active':
+        return 'bg-green-100 text-green-800 hover:bg-green-200';
+      case 'inactive':
+        return 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200';
+      case 'suspended':
+        return 'bg-red-100 text-red-800 hover:bg-red-200';
+      case 'deleted':
         return 'bg-gray-100 text-gray-800 hover:bg-gray-200';
       default:
         return 'bg-slate-100 text-slate-800';

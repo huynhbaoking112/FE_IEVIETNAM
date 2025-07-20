@@ -1,6 +1,7 @@
 import api from '../lib/api';
 import { API_ENDPOINTS } from '../constants/endpoints';
 import type { Task, TaskStatsResponse, TasksResponse } from '@/types/task.type';
+import { safeParseDate } from '@/utils/dateUtils';
 
 
 
@@ -20,9 +21,9 @@ export const getTasks = async (params?: {
   
   const tasksWithDates = response.data.tasks.map((task: Task & { createdAt: string; updatedAt: string; dueDate?: string }) => ({
     ...task,
-    createdAt: new Date(task.createdAt),
-    updatedAt: new Date(task.updatedAt),
-    dueDate: task.dueDate ? new Date(task.dueDate) : undefined,
+    createdAt: safeParseDate(task.createdAt),
+    updatedAt: safeParseDate(task.updatedAt),
+    dueDate: task.dueDate ? safeParseDate(task.dueDate) : undefined,
   }));
   
   return {

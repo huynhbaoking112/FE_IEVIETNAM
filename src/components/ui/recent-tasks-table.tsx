@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Task } from "@/types/task.type";
 import { formatDistanceToNow } from "date-fns";
 import { CalendarDays, MoreHorizontal, User } from "lucide-react";
+import { isValidDate, safeDateFormat } from "@/utils/dateUtils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -133,11 +134,11 @@ export const RecentTasksTable = ({
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  {task.dueDate ? (
+                  {task.dueDate && isValidDate(task.dueDate) ? (
                     <div className="text-sm">
                       <div>{formatDistanceToNow(task.dueDate, { addSuffix: true })}</div>
                       <div className="text-xs text-muted-foreground">
-                        {task.dueDate.toLocaleDateString()}
+                        {safeDateFormat(task.dueDate)}
                       </div>
                     </div>
                   ) : (
