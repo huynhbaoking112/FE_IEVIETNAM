@@ -3,16 +3,8 @@ import { API_ENDPOINTS } from '../constants/endpoints';
 import type { AuthResponse } from '../types/auth.types';
 import { useAuthStore } from '../store/auth.store';
 
-interface ApiError {
-  response?: {
-    data?: {
-      message?: string;
-    };
-  };
-}
 
 export const generateOwnerCode = async (phoneNumber: string): Promise<AuthResponse> => {
-  try {
     const response = await api.post(API_ENDPOINTS.AUTH.OWNER.GENERATE_CODE, {
       phoneNumber,
     });
@@ -20,21 +12,14 @@ export const generateOwnerCode = async (phoneNumber: string): Promise<AuthRespon
     return {
       success: response.data.success,
       message: response.data.message,
-      expiresAt: response.data.expiresAt,
-    };
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
-    throw new Error(
-      apiError.response?.data?.message || 'Failed to generate access code'
-    );
-  }
+    expiresAt: response.data.expiresAt,
+  };
 };
 
 export const validateOwnerCode = async (
   phoneNumber: string,
   accessCode: string
 ): Promise<AuthResponse> => {
-  try {
     const response = await api.post(API_ENDPOINTS.AUTH.OWNER.VALIDATE_CODE, {
       phoneNumber,
       accessCode,
@@ -51,16 +36,9 @@ export const validateOwnerCode = async (
         name: response.data.user.name,
       } : undefined,
     };
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
-    throw new Error(
-      apiError.response?.data?.message || 'Failed to validate access code'
-    );
-  }
 };
 
 export const logoutOwner = async (): Promise<AuthResponse> => {
-  try {
     const response = await api.post(API_ENDPOINTS.AUTH.OWNER.LOGOUT);
     
     useAuthStore.getState().clearAuth();
@@ -69,16 +47,9 @@ export const logoutOwner = async (): Promise<AuthResponse> => {
       success: response.data.success,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
-    throw new Error(
-      apiError.response?.data?.message || 'Failed to logout'
-    );
-  }
 };
 
 export const generateEmployeeCode = async (email: string): Promise<AuthResponse> => {
-  try {
     const response = await api.post(API_ENDPOINTS.AUTH.EMPLOYEE.GENERATE_CODE, {
       email,
     });
@@ -88,19 +59,12 @@ export const generateEmployeeCode = async (email: string): Promise<AuthResponse>
       message: response.data.message,
       expiresAt: response.data.expiresAt,
     };
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
-    throw new Error(
-      apiError.response?.data?.message || 'Failed to generate access code'
-    );
-  }
 };
 
 export const validateEmployeeCode = async (
   email: string,
   accessCode: string
 ): Promise<AuthResponse> => {
-  try {
     const response = await api.post(API_ENDPOINTS.AUTH.EMPLOYEE.VALIDATE_CODE, {
       email,
       accessCode,
@@ -120,16 +84,9 @@ export const validateEmployeeCode = async (
         status: response.data.user.status,
       } : undefined,
     };
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
-    throw new Error(
-      apiError.response?.data?.message || 'Failed to validate access code'
-    );
-  }
 };
 
 export const logoutEmployee = async (): Promise<AuthResponse> => {
-  try {
     const response = await api.post(API_ENDPOINTS.AUTH.EMPLOYEE.LOGOUT);
     
     useAuthStore.getState().clearAuth();
@@ -138,12 +95,6 @@ export const logoutEmployee = async (): Promise<AuthResponse> => {
       success: response.data.success,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    const apiError = error as ApiError;
-    throw new Error(
-      apiError.response?.data?.message || 'Failed to logout'
-    );
-  }
 };
 
 export const logout = async (userType: 'owner' | 'employee'): Promise<AuthResponse> => {

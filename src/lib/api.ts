@@ -2,6 +2,14 @@ import { useAuthStore } from '@/store/auth.store';
 import axios from 'axios';
 import { toast } from 'sonner';
 
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api',
   timeout: 10000,
@@ -29,7 +37,8 @@ api.interceptors.response.use(
       toast.error('Unauthorized');
       useAuthStore.getState().logout();
     }
-    return Promise.reject(error);
+    const apiError = error as ApiError;
+    return Promise.reject(apiError.response?.data || {message: 'An error occurred'});
   }
 );
 
